@@ -1,0 +1,59 @@
+﻿@using LiraryManagement.Models.ViewModel
+@model AuthorPaginationViewModel
+
+@{
+}
+
+<h1> List of Authors</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author Name</th>
+            <th>Date Of Birth</th>
+            <th>Book Count</th> <!-- New column for book count -->
+            <th>Actions</th>
+            <!-- other columns -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model.Authors)
+        {
+            <tr>
+                <td>@author.Id</td>
+                <td>@author.Name</td>
+                <td>@author.DateOfBirth.ToShortDateString()</td>
+                <td>@ViewBag.AuthorBookCounts[author.Id]</td> <!-- Display book count from ViewBag -->
+                <td>
+                    <!-- View Details button -->
+                    <a href="@Url.Action("View", "Authors", new { id = author.Id })" class="btn btn-info btn-sm">View Details</a>
+
+                    <!-- Delete form -->
+                    <form asp-action="Delete" asp-controller="Author" method="post" class="d-inline">
+                        <input type="hidden" name="Id" value="@author.Id" />
+                        <input type="hidden" name="Name" value="@author.Name" />
+                        <input type="hidden" name="DateOfBirth" value="@author.DateOfBirth" />
+                        <input type="hidden" name="IsActive" value="@author.IsActive" />
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this author?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+    @if (Model.CurrentPage > 1)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+    }
+</div>

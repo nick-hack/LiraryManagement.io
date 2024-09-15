@@ -1,0 +1,87 @@
+﻿@model LiraryManagement.Models.ViewModel.AddBookViewModel
+
+<form class="row g-3 needs-validation" method="post" action="@Url.Action("Add")" novalidate>
+    <div class="col-md-6 position-relative">
+        <label for="Title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" asp-for="Title" required>
+        <div class="invalid-tooltip">
+            Please provide a valid title.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="ISBN" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="ISBN" name="ISBN" asp-for="ISBN" required>
+        <div class="invalid-tooltip">
+            Please provide a valid ISBN.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="PublishedDate" class="form-label">Published Date</label>
+        <input type="date" class="form-control" id="PublishedDate" name="PublishedDate" asp-for="PublishedDate" required>
+        <div class="invalid-tooltip">
+            Please provide a valid published date.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="CategoriesId" class="form-label">Category</label>
+        <select class="form-control" id="CategoriesId" name="CategoriesId" asp-for="CategoriesId" required>
+            <option value="">Select a Category</option>
+            @if (ViewBag.Categories != null)
+            {
+                foreach (var category in (IEnumerable<SelectListItem>)ViewBag.Categories)
+                {
+                    <option value="@category.Value">@category.Text</option>
+                }
+            }
+        </select>
+        <div class="invalid-tooltip">
+            Please select a valid category.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="AuthorId" class="form-label">Author</label>
+        <select class="form-control" id="AuthorId" name="AuthorId" asp-for="AuthorId" required>
+            <option value="">Select an Author</option>
+            @if (ViewBag.Authors != null)
+            {
+                foreach (var author in (IEnumerable<SelectListItem>)ViewBag.Authors)
+                {
+                    <option value="@author.Value">@author.Text</option>
+                }
+            }
+        </select>
+        <div class="invalid-tooltip">
+            Please select a valid author.
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+</script>

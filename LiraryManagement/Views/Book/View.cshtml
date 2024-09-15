@@ -1,0 +1,36 @@
+﻿@model LiraryManagement.Models.ViewModel.UpdateBookViewModel
+
+<h1>Edit Author</h1>
+
+<form class="row g-3 needs-validation" method="post" asp-action="Edit" asp-controller="Book" novalidate>
+    <input type="hidden" id="Id" name="Id" asp-for="Id" />
+
+    <div class="col-md-6 position-relative">
+        <label for="Title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" asp-for="Title" required>
+        <div class="invalid-tooltip">
+            Please provide a valid Title.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="ISBN" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="ISBN" name="ISBN" asp-for="ISBN" required>
+        <div class="invalid-tooltip">
+            Please provide a valid ISBN.
+        </div>
+    </div>
+
+    <div class="col-md-6 position-relative">
+        <label for="PublishedDate" class="form-label">PublishedDate</label>
+        <input type="date" class="form-control" id="PublishedDate" name="PublishedDate" asp-for="PublishedDate" required>
+        <div class="invalid-tooltip">
+            Please provide a valid PublishedDate.
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit" asp-action="Delete" asp-controller="Book">Delete form</button>
+    </div>
+</form>
